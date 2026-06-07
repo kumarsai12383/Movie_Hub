@@ -2,7 +2,8 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
 import { getMovieById } from "../api/tmdb";
-import {getSimilarMovies} from "../api/tmdb";
+import { getMovieVideos } from "../api/tmdb";
+import { getSimilarMovies } from "../api/tmdb";
 import { getPosterUrl, getBackdropUrl } from "../utils/helpFunctions";
 
 import HeroLoading from "../components/HeroLoader";
@@ -10,6 +11,7 @@ function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [videos, setVideos] = useState([]);
   const [similarMovies, setSimilarMovies] = useState([]);
   useEffect(() => {
     const fetchMovie = async () => {
@@ -26,11 +28,25 @@ function MovieDetailsPage() {
       const similarMoviesData = await getSimilarMovies(movieId);
       setSimilarMovies(similarMoviesData);
     };
+    const fetchVideos = async () => {
+      const videosData = await getMovieVideos(movieId);
+      const trailer = videosData.find(
+        (video) => video.type === "Trailer" && video.site === "YouTube",
+      );
+      setVideos(trailer ? [trailer] : []);
+    };
     if (movieId) {
       fetchSimilarMovies();
+      fetchVideos();
     }
   }, [movieId]);
-
+  function handleWatchTrailer() {
+    if (videos.length > 0) {
+      const trailer = videos[0];
+      const youtubeUrl = `https://www.youtube.com/watch?v=${trailer.key}`;
+      window.open(youtubeUrl, "_blank");
+    }
+  }
   return (
     <>
       {loading ? (
@@ -47,7 +63,7 @@ function MovieDetailsPage() {
 
             <div className="relative z-10">
               <div className="w-full h-auto mt-16 mx-auto p-4">
-                <div className="flex justify-center items-center">
+                <div className="">
                   <div className="max-w-6xl mx-auto grid grid-cols-12 gap-8">
                     <div className="col-span-12 md:col-span-4">
                       <img
@@ -84,8 +100,13 @@ function MovieDetailsPage() {
                         {movie.overview}
                       </p>
                       <div className="flex gap-4">
-                        <button className="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">
-                          Watch Trailer
+                        <button
+                          onClick={handleWatchTrailer}
+                          className="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded"
+                        >
+                          {videos.length > 0
+                            ? "Watch Trailer"
+                            : "Trailer Not Available"}
                         </button>
                         <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                           ❤️ Favorite
@@ -93,10 +114,21 @@ function MovieDetailsPage() {
                       </div>
                     </div>
                   </div>
+                  {videos.length > 0 && (
+                    <div className="mt-8 max-w-6xl mx-auto">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${videos[0].key}`}
+                        title="Movie Trailer"
+                        allowFullScreen
+                        className="w-full h-screen rounded-lg shadow-lg"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
+
           <div>
             <MovieCard title="Similar Movies" Movies={similarMovies} />
           </div>
