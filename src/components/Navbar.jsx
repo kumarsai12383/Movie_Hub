@@ -111,7 +111,7 @@ function Navbar() {
             <button
               className="md:hidden text-white"
               onClick={() => {setIsOpen(!isOpen);
-                setTimeout(() => {setIsOpen(false)}, 2000);
+                setTimeout(() => {setIsOpen(false)}, 5000);
               }}
             >
               <svg
