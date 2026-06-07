@@ -1,5 +1,5 @@
 import Hero from "../components/Hero";
-import { getPopularMovies ,getTopRatedMovies,getUpcomingMovies} from "../Api/tmdb";
+import { getPopularMovies ,getTopRatedMovies,getUpcomingMovies} from "../api/tmdb";
 import { useState, useEffect } from "react";
 import HeroLoading from "../components/HeroLoader";
 import MovieCardLoading from "../components/MoviecardLoader";
