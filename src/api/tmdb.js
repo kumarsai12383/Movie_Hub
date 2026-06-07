@@ -1,9 +1,8 @@
-const TMBD_TOKEN =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MDgwMDI5NDY1NzA5OThkODI3NTQyNmM2YzYxZWE4YSIsIm5iZiI6MTc4MDc1MzY2My4wMTMsInN1YiI6IjZhMjQyNGZmMWRiYzUzODQ1OTc2Njc5NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.M7lDBLoyD2xyn9w6qkp7FgSjX7OiZwEXtY2YUNJ3d0U";
-
+const TMBD_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 async function getPopularMovies() {
   const url =
-    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+    `${BASE_URL}/movie/popular?language=en-US&page=1`;
   const options = {
     method: "GET",
     headers: {
@@ -24,7 +23,7 @@ async function getPopularMovies() {
 
 async function getTopRatedMovies() {
   const url =
-    "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
+    `${BASE_URL}/movie/top_rated?language=en-US&page=1`;
 
   const options = {
     method: "GET",
@@ -46,7 +45,7 @@ async function getTopRatedMovies() {
 
 async function getUpcomingMovies() {
   const url =
-     'https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1';
+     `${BASE_URL}/movie/upcoming?language=en-US&page=1`;
 
   const options = {
     method: "GET",
@@ -66,7 +65,7 @@ async function getUpcomingMovies() {
   }
 }
 async function getMovieById(id) {
-  const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
+  const url = `${BASE_URL}/movie/${id}?language=en-US`;
 
   const options = {
     method: "GET",
@@ -86,7 +85,7 @@ async function getMovieById(id) {
   }
 }
 async function getSimilarMovies(id) {
-  const url = `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`;
+  const url = `${BASE_URL}/movie/${id}/similar?language=en-US&page=1`;
   const options = {
     method: "GET",
     headers: {
@@ -105,7 +104,7 @@ async function getSimilarMovies(id) {
   }
 }
 async function searchMovies(query) {
-  const url = `https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&page=1`;
+  const url = `${BASE_URL}/search/movie?query=${query}&language=en-US&page=1`;
  const options = {
     method: "GET",
     headers: {
