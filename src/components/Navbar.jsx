@@ -91,7 +91,7 @@ function Navbar() {
               MovieHub
             </Link>
           </div>
-          <div className="links flex gap-4 items-center text-lg font-bold text-red-800">
+          <div className="links flex gap-4 items-center text-lg font-bold text-white ">
             <Link to="/search" className="md:hidden hover:text-red-500">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
