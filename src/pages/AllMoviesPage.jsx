@@ -61,7 +61,7 @@ function AllMoviesPage() {
     <>
       <div className="w-full h-250 h-auto mx-auto px-4 bg-gray-950 py-8 mt-16">
         <div className="flex items-center justify-center gap-4">
-          <div className="flex w-1/2 gap-4">
+          <div className="flex w-auto gap-4">
             <input
               type="text"
               placeholder="Enter movie title..."
