@@ -1,5 +1,5 @@
-const TMBD_TOKEN = import.meta.env.VITE_TMDB_TOKEN || "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MDgwMDI5NDY1NzA5OThkODI3NTQyNmM2YzYxZWE4YSIsIm5iZiI6MTc4MDc1MzY2My4wMTMsInN1YiI6IjZhMjQyNGZmMWRiYzUzODQ1OTc2Njc5NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.M7lDBLoyD2xyn9w6qkp7FgSjX7OiZwEXtY2YUNJ3d0U"
-const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL || "https://api.themoviedb.org/3";
+const TMBD_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MDgwMDI5NDY1NzA5OThkODI3NTQyNmM2YzYxZWE4YSIsIm5iZiI6MTc4MDc1MzY2My4wMTMsInN1YiI6IjZhMjQyNGZmMWRiYzUzODQ1OTc2Njc5NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.M7lDBLoyD2xyn9w6qkp7FgSjX7OiZwEXtY2YUNJ3d0U"
+const BASE_URL = "https://api.themoviedb.org/3";
 async function getPopularMovies() {
   const url =
     `${BASE_URL}/movie/popular?language=en-US&page=1`;
@@ -14,7 +14,6 @@ async function getPopularMovies() {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log("Popular Movies:", data.results);
     return data.results;
   } catch (error) {
     console.error("Error fetching popular movies:", error);
@@ -36,7 +35,6 @@ async function getTopRatedMovies() {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log("Top Rated Movies:", data.results);
     return data.results;
   } catch (error) {
     console.error("Error fetching top rated movies:", error);
@@ -58,7 +56,7 @@ async function getUpcomingMovies() {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log("Upcoming Movies:", data.results);
+    
     return data.results;
   } catch (error) {
     console.error("Error fetching upcoming movies:", error);
@@ -78,7 +76,6 @@ async function getMovieById(id) {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log("Movie Details:", data);
     return data;
   } catch (error) {
     console.error("Error fetching movie details:", error);
@@ -97,7 +94,7 @@ async function getSimilarMovies(id) {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log("Similar Movies:", data.results);
+   
     return data.results;
   } catch (error) {
     console.error("Error fetching similar movies:", error);
@@ -142,6 +139,45 @@ const options = {
     return [];
   }
 }
+async function getMovies() {
+  const url ='https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc';
+const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: "Bearer " + TMBD_TOKEN,
+    },
+  };
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    console.log("All Movies:", data.results);
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    return [];
+  }
+}
 
 
-export { getPopularMovies, getTopRatedMovies ,getUpcomingMovies ,getMovieById, getSimilarMovies,searchMovies,getMovieVideos};
+async function getMoviesBySort(urlEndPoint) {
+  const url = urlEndPoint;
+const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: "Bearer " + TMBD_TOKEN,
+    },
+  };
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    console.log("All Movies:", data.results);
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    return [];
+  }
+}
+
+export { getPopularMovies, getTopRatedMovies ,getUpcomingMovies ,getMovieById, getSimilarMovies,searchMovies,getMovieVideos,getMovies,getMoviesBySort};

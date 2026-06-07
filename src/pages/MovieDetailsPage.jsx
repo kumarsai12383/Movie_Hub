@@ -1,9 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
 import { getMovieById } from "../api/tmdb";
 import YoutubeLogo from "../assets/Youtube_Icon.png";
 import { getMovieVideos } from "../api/tmdb";
+import { useContext } from "react";
+import FavContext from "../favContext/fav";
 import { getSimilarMovies } from "../api/tmdb";
 import { getPosterUrl, getBackdropUrl } from "../utils/helpFunctions";
 
@@ -14,6 +16,19 @@ function MovieDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [videos, setVideos] = useState([]);
   const [similarMovies, setSimilarMovies] = useState([]);
+  const { favorites, setFavorites } = useContext(FavContext);
+  const [addedToFavorites, setAddedToFavorites] = useState(false);
+  function handleAddToFavorites() {
+    if (favorites.some((fav) => fav.id === movie.id)) {
+      setFavorites(favorites.filter((fav) => fav.id !== movie.id))
+      localStorage.setItem("favorites", JSON.stringify(favorites.filter((fav) => fav.id !== movie.id)));
+      setAddedToFavorites(false);
+    } else {
+      setFavorites([...favorites, movie]);
+      localStorage.setItem("favorites", JSON.stringify([...favorites, movie]));
+      setAddedToFavorites(true);
+    }
+  }
   useEffect(() => {
     const fetchMovie = async () => {
       setLoading(true);
@@ -41,7 +56,7 @@ function MovieDetailsPage() {
       fetchVideos();
     }
   }, [movieId]);
-  
+
   return (
     <>
       {loading ? (
@@ -95,16 +110,28 @@ function MovieDetailsPage() {
                         {movie.overview}
                       </p>
                       <div className="flex gap-4">
-                        <a 
+                        <a
                           href={videos.length > 0 ? `#YoutubeSection` : "#"}
                           className=" text-white font-bold py-2 px-4 rounded cursor-pointer glassy"
                         >
-                          {videos.length > 0
-                            ? <div className="flex"><img src={YoutubeLogo} alt="Play Icon" className="w-6 h-6 mr-2" /> Watch Trailer</div> 
-                            : "Trailer Not Available"}
+                          {videos.length > 0 ? (
+                            <div className="flex">
+                              <img
+                                src={YoutubeLogo}
+                                alt="Play Icon"
+                                className="w-6 h-6 mr-2"
+                              />{" "}
+                              Watch Trailer
+                            </div>
+                          ) : (
+                            "Trailer Not Available"
+                          )}
                         </a>
-                        <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                          ❤️ Favorite
+                        <button
+                          className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                          onClick={() => {handleAddToFavorites()}}
+                        >
+                          {addedToFavorites ? "💔 Remove from Favorites" : "❤️ Add to Favorites"}
                         </button>
                       </div>
                     </div>
@@ -124,9 +151,28 @@ function MovieDetailsPage() {
             </div>
           </div>
 
-          <div>
-            <MovieCard title="Similar Movies" Movies={similarMovies} />
-          </div>
+          {similarMovies.length > 0 ? (
+            <div>
+              <MovieCard
+                title={`Similar Movies (${similarMovies.length})`}
+                Movies={similarMovies}
+              />
+            </div>
+          ) : (
+            <div className="w-full bg-gray-950 mx-auto h-50 flex items-center justify-center">
+              <div className="gap-2">
+                <p className="text-white text-center mb-5">
+                  No similar movies found.
+                </p>
+                <Link
+                  to="/movies"
+                  className="text-white bg-red-800 hover:text-amber-400 mt-4 p-3 rounded font-bold"
+                >
+                  Explore Movies
+                </Link>
+              </div>
+            </div>
+          )}
         </>
       )}
     </>
