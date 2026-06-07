@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
 import { getMovieById } from "../api/tmdb";
+import YoutubeLogo from "../assets/Youtube_Icon.png";
 import { getMovieVideos } from "../api/tmdb";
 import { getSimilarMovies } from "../api/tmdb";
 import { getPosterUrl, getBackdropUrl } from "../utils/helpFunctions";
@@ -40,13 +41,7 @@ function MovieDetailsPage() {
       fetchVideos();
     }
   }, [movieId]);
-  function handleWatchTrailer() {
-    if (videos.length > 0) {
-      const trailer = videos[0];
-      const youtubeUrl = `https://www.youtube.com/watch?v=${trailer.key}`;
-      window.open(youtubeUrl, "_blank");
-    }
-  }
+  
   return (
     <>
       {loading ? (
@@ -100,14 +95,14 @@ function MovieDetailsPage() {
                         {movie.overview}
                       </p>
                       <div className="flex gap-4">
-                        <button
-                          onClick={handleWatchTrailer}
-                          className="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded"
+                        <a 
+                          href={videos.length > 0 ? `#YoutubeSection` : "#"}
+                          className=" text-white font-bold py-2 px-4 rounded cursor-pointer glassy"
                         >
                           {videos.length > 0
-                            ? "Watch Trailer"
+                            ? <div className="flex"><img src={YoutubeLogo} alt="Play Icon" className="w-6 h-6 mr-2" /> Watch Trailer</div> 
                             : "Trailer Not Available"}
-                        </button>
+                        </a>
                         <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                           ❤️ Favorite
                         </button>
@@ -115,7 +110,7 @@ function MovieDetailsPage() {
                     </div>
                   </div>
                   {videos.length > 0 && (
-                    <div className="mt-8 max-w-6xl mx-auto">
+                    <div id="YoutubeSection" className="mt-8 max-w-6xl mx-auto">
                       <iframe
                         src={`https://www.youtube.com/embed/${videos[0].key}`}
                         title="Movie Trailer"
