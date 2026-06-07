@@ -30,6 +30,12 @@ function MovieDetailsPage() {
     }
   }
   useEffect(() => {
+    const Storedfav = localStorage.getItem("favorites");
+    if (Storedfav) {
+      const parsedFav = JSON.parse(Storedfav);
+      setFavorites(parsedFav);
+      setAddedToFavorites(parsedFav.some((fav) => fav.id === parseInt(movieId)));
+    }
     const fetchMovie = async () => {
       setLoading(true);
       const movieData = await getMovieById(movieId);
