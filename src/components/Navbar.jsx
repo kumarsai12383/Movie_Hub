@@ -91,7 +91,7 @@ function Navbar() {
               MovieHub
             </Link>
           </div>
-          <div className="links flex gap-4 items-center text-lg font-bold text-white ">
+          <div className="links flex gap-4 items-center text-lg font-bold text-red-800 ">
             <Link to="/search" className="md:hidden hover:text-red-500">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -110,8 +110,11 @@ function Navbar() {
             </Link>
             <button
               className="md:hidden text-white"
-              onClick={() => {setIsOpen(!isOpen);
-                setTimeout(() => {setIsOpen(false)}, 5000);
+              onClick={() => {
+                setIsOpen(!isOpen);
+                setTimeout(() => {
+                  setIsOpen(false);
+                }, 5000);
               }}
             >
               <svg
@@ -132,7 +135,7 @@ function Navbar() {
           </div>
         </div>
         {isOpen && (
-          <div className="bg-gray-950 flex flex-col gap-4 p-4 text-lg font-bold w-1/2 text-red-900">
+          <div className="bg-gray-950 flex flex-col gap-4 p-4 text-lg font-bold w-1/2 text-white">
             <Link to="/" className="hover:text-red-500 flex items-center gap-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
