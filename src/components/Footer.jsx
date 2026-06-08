@@ -57,7 +57,7 @@ function Footer() {
 
           <div className="border-t border-slate-800 mt-8 pt-6 text-center">
             <p className="text-slate-500 text-sm">
-              © {new Date().getFullYear()} MovieHub. All rights reserved.
+              © {new Date().getFullYear()} <img src={Img} alt="Logo" className="h-6 w-auto inline-block align-middle" /> MovieHub. All rights reserved.
             </p>
           </div>
         </div>
