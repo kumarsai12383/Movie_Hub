@@ -1,5 +1,5 @@
 const TMBD_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL;;
 async function getPopularMovies() {
   const url =
     `${BASE_URL}/movie/popular?language=en-US&page=1`;
@@ -14,6 +14,7 @@ async function getPopularMovies() {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
+  
     return data.results;
   } catch (error) {
     console.error("Error fetching popular movies:", error);
@@ -179,5 +180,24 @@ const options = {
     return [];
   }
 }
+async function getMovieCast(movieId) {
+  const url = `${BASE_URL}/movie/${movieId}/credits`;
+const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: "Bearer " + TMBD_TOKEN,
+    },
+  };
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+   
+    return data.cast;
+  } catch (error) {
+    console.error("Error fetching movie cast:", error);
+    return [];
+  }
+}
 
-export { getPopularMovies, getTopRatedMovies ,getUpcomingMovies ,getMovieById, getSimilarMovies,searchMovies,getMovieVideos,getMovies,getMoviesBySort};
+export { getPopularMovies, getTopRatedMovies ,getUpcomingMovies ,getMovieById, getSimilarMovies,searchMovies,getMovieVideos,getMovies,getMoviesBySort,getMovieCast};

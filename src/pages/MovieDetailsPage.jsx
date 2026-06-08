@@ -4,6 +4,8 @@ import MovieCard from "../components/MovieCard";
 import { getMovieById } from "../api/tmdb";
 import YoutubeLogo from "../assets/Youtube_Icon.png";
 import { getMovieVideos } from "../api/tmdb";
+import CastCard from "../components/CastCard";
+import {getMovieCast} from "../api/tmdb"
 import { useContext } from "react";
 import FavContext from "../favContext/fav";
 import { getSimilarMovies } from "../api/tmdb";
@@ -15,6 +17,7 @@ function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [videos, setVideos] = useState([]);
+  const [cast, setCast] = useState([]);
   const [similarMovies, setSimilarMovies] = useState([]);
   const { favorites, setFavorites } = useContext(FavContext);
   const [isaddedToFavorites, setAddedToFavorites] = useState(false);
@@ -42,6 +45,13 @@ function MovieDetailsPage() {
       setMovie(movieData);
       setLoading(false);
     };
+    const fetchCast = async () => {
+      let castData = await getMovieCast(movieId);
+        castData = castData.slice(0, 10);
+      setCast(castData);
+
+    };
+    fetchCast();
     fetchMovie();
   }, [movieId]);
 
@@ -156,7 +166,25 @@ function MovieDetailsPage() {
               </div>
             </div>
           </div>
-
+                  {cast.length > 0 ? (
+            <div>
+              <CastCard title={`Cast (${cast.length})`} Cast={cast} />
+            </div>
+          ) : (
+            <div className="w-full bg-gray-950 mx-auto h-50 flex items-center justify-center">
+              <div className="gap-2">
+                <p className="text-white text-center mb-5">
+                  No cast information found.
+                </p>
+                <Link
+                  to="/movies"
+                  className="text-white bg-red-800 hover:text-amber-400 mt-4 p-3 rounded font-bold"
+                >
+                  Explore Movies
+                </Link>
+              </div>
+            </div>
+          )}
           {similarMovies.length > 0 ? (
             <div>
               <MovieCard
