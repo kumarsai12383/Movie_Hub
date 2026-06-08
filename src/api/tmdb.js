@@ -1,5 +1,5 @@
-const TMBD_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MDgwMDI5NDY1NzA5OThkODI3NTQyNmM2YzYxZWE4YSIsIm5iZiI6MTc4MDc1MzY2My4wMTMsInN1YiI6IjZhMjQyNGZmMWRiYzUzODQ1OTc2Njc5NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.M7lDBLoyD2xyn9w6qkp7FgSjX7OiZwEXtY2YUNJ3d0U"
-const BASE_URL = "https://api.themoviedb.org/3";
+const TMBD_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 async function getPopularMovies() {
   const url =
     `${BASE_URL}/movie/popular?language=en-US&page=1`;
