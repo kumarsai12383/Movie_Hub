@@ -17,7 +17,7 @@ function MovieDetailsPage() {
   const [videos, setVideos] = useState([]);
   const [similarMovies, setSimilarMovies] = useState([]);
   const { favorites, setFavorites } = useContext(FavContext);
-  const [addedToFavorites, setAddedToFavorites] = useState(false);
+  const [isaddedToFavorites, setAddedToFavorites] = useState(false);
   function handleAddToFavorites() {
     if (favorites.some((fav) => fav.id === movie.id)) {
       setFavorites(favorites.filter((fav) => fav.id !== movie.id))
@@ -137,7 +137,7 @@ function MovieDetailsPage() {
                           className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
                           onClick={() => {handleAddToFavorites()}}
                         >
-                          {addedToFavorites ? "💔 Remove from Favorites" : "❤️ Add to Favorites"}
+                          {isaddedToFavorites ? "💔 Remove from Favorites" : "❤️ Add to Favorites"}
                         </button>
                       </div>
                     </div>
