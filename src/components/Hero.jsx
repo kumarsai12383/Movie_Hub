@@ -59,9 +59,9 @@ function Hero({ movies }) {
                 <Link to={`/movie/${movies[0].id}`} className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                   View Details
                 </Link>
-                <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-4">
+                <Link to={`/movie/${movies[0].id}`} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-4">
                   More info
-                </button>
+                </Link>
               </div>
             </div>
           </div>
