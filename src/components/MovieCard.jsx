@@ -64,7 +64,7 @@ function MovieCard({ title, Movies }) {
                     <img
                       src={getPosterUrl(movie.poster_path)}
                       alt={movie.title}
-                      className="w-full h-96 object-cover"
+                      className="w-full h-96 object-cover lazy-load"
                     />
                     <div className="p-4">
                       <div>

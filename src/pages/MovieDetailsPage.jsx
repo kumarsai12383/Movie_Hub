@@ -95,7 +95,7 @@ function MovieDetailsPage() {
                       <img
                         src={getPosterUrl(movie.poster_path)}
                         alt={movie.title}
-                        className="w-auto h-auto rounded-lg shadow-lg"
+                        className="w-auto h-auto rounded-lg shadow-lg lazy-load"
                       />
                     </div>
                     <div className="col-span-12 md:col-span-8">
