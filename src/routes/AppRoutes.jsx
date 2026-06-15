@@ -5,6 +5,7 @@ import MovieDetailsPage from '../pages/MovieDetailsPage'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import Favs from '../pages/Favs'
+import NotFoundPage from '../pages/NotFound'
 import FavContext from '../favContext/fav'
 import { useState } from 'react'
 
@@ -22,6 +23,7 @@ function AppRouting() {
         <Route path="/movie/:movieId" element={<MovieDetailsPage />} />
         <Route path="/movies" element={<AllMoviesPage />} />
         <Route path="/favorites" element={<Favs />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
