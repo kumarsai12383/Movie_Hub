@@ -1,6 +1,7 @@
 import Hero from "../components/Hero";
 import { getPopularMovies ,getTopRatedMovies,getUpcomingMovies} from "../api/tmdb";
 import { useState, useEffect } from "react";
+import {getPopularMovies as getPopularMoviesEndpoint} from "../api/tmdb";
 import HeroLoading from "../components/HeroLoader";
 import MovieCardLoading from "../components/MoviecardLoader";
 import Moviecard from "../components/MovieCard";
@@ -11,7 +12,7 @@ function HomePage() {
    const [HeroLoadingState, setLoading] = useState(true);
   const [MovieCardLoadingState, setMovieCardLoading] = useState(true);
   useEffect(() => {
-    const PopularMoves = getPopularMovies();
+    const PopularMoves = getPopularMovies({endpoint: getPopularMoviesEndpoint});
     const TopRatedMoves = getTopRatedMovies();
     const UpcomingMovies = getUpcomingMovies();
     PopularMoves.then((data) => {
