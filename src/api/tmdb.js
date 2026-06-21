@@ -117,7 +117,7 @@ async function getMoviesBySort(urlEndPoint) {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log("All Movies:", data.results);
+   
     return data.results;
   } catch (error) {
     console.error("Error fetching movies:", error);
