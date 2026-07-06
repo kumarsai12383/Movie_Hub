@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Img from "../assets/MoviesHubLogo.png";
 import { useState,useContext ,useEffect} from "react";
 import FavContext from "../favContext/fav";
@@ -25,16 +25,21 @@ function Navbar() {
         <div className="max-w-6xl mx-auto flex glass h-16 justify-between items-center">
           <div className="flex items-center justify-center">
             <img src={Img} alt="Logo" className="h-10 w-auto" />
-            <Link
+            <NavLink
               to="/"
               className="text-amber-300 font-bold font-Poppins text-2xl"
             >
               MovieHub
-            </Link>
+            </NavLink>
           </div>
 
-          <div className="links flex gap-4 items-center text-lg font-bold text-white ">
-            <Link to="/" className="hover:text-red-500 flex items-center gap-1">
+          <div className="NavLinks flex gap-4 items-center text-lg font-bold text-white ">
+            <NavLink to="/" 
+             className={({ isActive }) =>
+    isActive
+      ? "flex items-center gap-2  text-amber-300 "
+      : "flex items-center gap-2 text-gray-100 hover:text-red-400"
+  }>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -50,12 +55,16 @@ function Navbar() {
                 />
               </svg>
               Home
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
               to="/search"
-              className="hover:text-red-500 flex items-center gap-1"
-            >
+              className={({ isActive }) =>
+    isActive
+      ? "flex items-center gap-2  text-amber-300 "
+      : "flex items-center gap-2 text-gray-100 hover:text-red-400"
+  }>
+            
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -71,11 +80,14 @@ function Navbar() {
                 />
               </svg>
               Search
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/movies"
-              className="hover:text-red-500 flex items-center gap-1"
-            >
+              className={({ isActive }) =>
+    isActive
+      ? "flex items-center gap-2  text-amber-300 "
+      : "flex items-center gap-2 text-gray-100 hover:text-red-400"
+  }>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -91,11 +103,14 @@ function Navbar() {
                 />
               </svg>
               All Movies
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/favorites"
-              className="hover:text-red-500 flex items-center gap-1"
-            >
+              className={({ isActive }) =>
+    isActive
+      ? "flex items-center gap-2  text-amber-300 "
+      : "flex items-center gap-2 text-gray-100 hover:text-red-400"
+  }>
                <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -111,7 +126,7 @@ function Navbar() {
                 />
               </svg>
               Favorites ({localFavorites.length})
-            </Link>
+            </NavLink>
           </div>
         </div>
       </nav>
@@ -120,15 +135,19 @@ function Navbar() {
         <div className="max-w-5xl mx-auto p-3 flex glass h-16 justify-between items-center">
           <div className="flex items-center justify-center">
             <img src={Img} alt="Logo" className="h-10 w-auto" />
-            <Link
+            <NavLink
               to="/"
               className="text-amber-300 font-bold font-Poppins text-2xl"
             >
               MovieHub
-            </Link>
+            </NavLink>
           </div>
-          <div className="links flex gap-4 items-center text-lg font-bold text-red-800 ">
-            <Link to="/search" className="md:hidden hover:text-red-500">
+          <div className="NavLinks flex gap-4 items-center text-lg font-bold text-red-800 ">
+            <NavLink to="/search" className={({ isActive }) =>
+    isActive
+      ? "flex items-center gap-2  text-amber-300 "
+      : "flex items-center gap-2 text-gray-100 hover:text-red-400"
+  }>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -143,7 +162,7 @@ function Navbar() {
                   d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
                 />
               </svg>
-            </Link>
+            </NavLink>
             <button
               className="md:hidden text-white"
               onClick={() => {
@@ -172,7 +191,11 @@ function Navbar() {
         </div>
         {isOpen && (
           <div className="bg-gray-950 flex flex-col gap-4 p-4 text-lg font-bold w-1/2 text-white">
-            <Link to="/" className="hover:text-red-500 flex items-center gap-1">
+            <NavLink to="/" className={({ isActive }) =>
+    isActive
+      ? "flex items-center gap-2  text-amber-300 "
+      : "flex items-center gap-2 text-gray-100 hover:text-red-400"
+  }>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -188,10 +211,14 @@ function Navbar() {
                 />
               </svg>
               Home
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/search"
-              className="hover:text-red-500 flex items-center gap-2"
+              className={({ isActive }) =>
+    isActive
+      ? "flex items-center gap-2  text-amber-300 "
+      : "flex items-center gap-2 text-gray-100 hover:text-red-400"
+  }
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -208,10 +235,14 @@ function Navbar() {
                 />
               </svg>
               Search
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/movies"
-              className="hover:text-red-500 flex items-center gap-2"
+              className={({ isActive }) =>
+    isActive
+      ? "flex items-center gap-2  text-amber-300 "
+      : "flex items-center gap-2 text-gray-100 hover:text-red-400"
+  }
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -228,10 +259,14 @@ function Navbar() {
                 />
               </svg>
               All Movies
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/favorites"
-              className="hover:text-red-500 flex items-center gap-1"
+              className={({ isActive }) =>
+    isActive
+      ? "flex items-center gap-2  text-amber-300 "
+      : "flex items-center gap-2 text-gray-100 hover:text-red-400"
+  }
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -248,7 +283,7 @@ function Navbar() {
                 />
               </svg>
               Favorites ({favorites.length})
-            </Link>
+            </NavLink>
           </div>
         )}
       </nav>
